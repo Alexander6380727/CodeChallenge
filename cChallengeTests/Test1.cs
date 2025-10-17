@@ -71,12 +71,15 @@ namespace cChallengeTests
         {
             Assert.AreEqual(" ", cChallenge.Program.OldPhonePad("0#"));
             Assert.AreEqual("", cChallenge.Program.OldPhonePad("#"));
-            Assert.AreEqual("", cChallenge.Program.OldPhonePad("1")); 
+            Assert.AreEqual("", cChallenge.Program.OldPhonePad("1"));
+            Assert.AreEqual("", cChallenge.Program.OldPhonePad("111"));
+            Assert.AreEqual("", cChallenge.Program.OldPhonePad("1122"));
             Assert.AreEqual("", cChallenge.Program.OldPhonePad("asd#")); 
             Assert.AreEqual("&AD&AD", cChallenge.Program.OldPhonePad("123asd123#"));
             Assert.AreEqual("P", cChallenge.Program.OldPhonePad("77777#")); 
             Assert.AreEqual("T", cChallenge.Program.OldPhonePad("8888#"));
             Assert.AreEqual("W", cChallenge.Program.OldPhonePad("99999#"));
+
         }
     }
 }

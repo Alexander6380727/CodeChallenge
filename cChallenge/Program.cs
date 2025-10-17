@@ -24,6 +24,7 @@ namespace cChallenge
             Console.WriteLine(OldPhonePad("4433555 555666 096667775553#"));
             Console.WriteLine(OldPhonePad("3#"));
             Console.WriteLine(OldPhonePad("777778888#"));
+            Console.WriteLine(OldPhonePad("777778888"));
         }
 
         public static string OldPhonePad(string input)
@@ -35,19 +36,19 @@ namespace cChallenge
 
             for (int i = 0; i < input.Length; i++) // Iterate through each character in the input string
             {
-                if (currentKey == input[i]) runningTotal++;
+                if (currentKey == input[i]) runningTotal++; // If the same key is pressed, increment the count
                 else
                 {
                     if (currentKey == '#') break; // In case a string has multiple '#' characters
-                    else if (currentKey == '0') outputString.Append(' ');
-                    else if (Char.IsDigit(currentKey)) outputString.Append(GetCharFromKeyPress(currentKey, runningTotal));
-                    else if (currentKey == '*' && outputString.Length > 0) outputString.Length--;
+                    else if (Char.IsDigit(currentKey)) outputString.Append(GetCharFromKeyPress(currentKey, runningTotal)); // Only allow digits to be processed
+                    else if (currentKey == '*' && outputString.Length > 0) outputString.Length--; // Only allow backspace if there is something to delete
 
                     currentKey = input[i];
                     runningTotal = 0;
                 }
             }
 
+            if (currentKey != '#') return String.Empty; // If string does not end with '#', return empty string
             return outputString.ToString();
         }
 
@@ -58,6 +59,8 @@ namespace cChallenge
 
             switch (key)
             {
+                case '0':
+                    return ' ';
                 case '1':
                     return "&'("[count];
                 case '2':
