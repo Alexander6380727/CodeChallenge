@@ -1,10 +1,10 @@
 # CodeChallenge
 ## Table of Contents
-* [Challenge](Challenge)
-* [Overview](Overview)
-* [Features](Features)
-* [Code Structure](Code-Structure)
-* [Testing](Testing)
+* [Challenge](#Challenge)
+* [Overview](#Overview)
+* [Features](#Features)
+* [Code Structure](#Code-Structure)
+* [Testing](#Testing)
 ## Challenge
 Here is an old phone keypad with alphabetical letters, a backspace key, and a send button. <br>
 
