@@ -70,7 +70,10 @@ namespace cChallengeTests
         public void OldPhonePad_SpecialCases() // Test cases for special characters and edge cases
         {
             Assert.AreEqual(" ", cChallenge.Program.OldPhonePad("0#"));
+            Assert.AreEqual("", cChallenge.Program.OldPhonePad(""));
             Assert.AreEqual("", cChallenge.Program.OldPhonePad("#"));
+            Assert.AreEqual("", cChallenge.Program.OldPhonePad("#####"));
+            Assert.AreEqual("", cChallenge.Program.OldPhonePad("         #"));
             Assert.AreEqual("", cChallenge.Program.OldPhonePad("1"));
             Assert.AreEqual("", cChallenge.Program.OldPhonePad("111"));
             Assert.AreEqual("", cChallenge.Program.OldPhonePad("1122"));

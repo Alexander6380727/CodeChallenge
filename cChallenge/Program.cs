@@ -24,63 +24,52 @@ namespace cChallenge
             Console.WriteLine(OldPhonePad("3#"));
             Console.WriteLine(OldPhonePad("777778888#"));
             Console.WriteLine(OldPhonePad("777778888"));
+            Console.WriteLine(OldPhonePad("#####"));
+            Console.WriteLine(OldPhonePad("            #"));
         }
 
         public static string OldPhonePad(string input)
         {
 
-            int runningTotal = 0; // Keep track of consecutive key presses
-            StringBuilder outputString = new StringBuilder(); // String concatenation
-            char currentKey = '\0'; // Current key being processed
+            int runningTotal = 0; // Keep track of consecutive key presses.
+            StringBuilder outputString = new StringBuilder(); // String concatenation.
+            char currentKey = '\0'; // Current key being processed.
 
-            for (int i = 0; i < input.Length; i++) // Iterate through each character in the input string
+            foreach (char currentChar in input) // Since I am not assigning variables to the indexes, using foreach is fine.
             {
-                if (currentKey == input[i]) runningTotal++; // If the same key is pressed, increment the count
-                else
+
+                if (currentKey == currentChar) // If the same key is pressed, increment the count.
                 {
-                    if (currentKey == '#') break; // In case a string has multiple '#' characters
-                    else if (Char.IsDigit(currentKey)) outputString.Append(GetCharFromKeyPress(currentKey, runningTotal)); // Only allow digits to be processed
-                    else if (currentKey == '*' && outputString.Length > 0) outputString.Length--; // Only allow backspace if there is something to delete
-
-                    currentKey = input[i];
-                    runningTotal = 0;
+                    runningTotal++;
+                    continue;
                 }
+                else if (currentKey == '#') { break; } // In case a string has multiple '#' characters.
+                else if (currentKey == '*' && outputString.Length > 0) { outputString.Length--; } // Backspace deletion (Only allow backspace if there is something to delete).
+                else if (KeyMappings.TryGetValue(currentKey, out string addedChar)) // Once a different key is pressed, process the previous key (Strings not in the dictionary get assigned as Null).
+                {
+                    if (currentKey == '7' || currentKey == '9') { outputString.Append(addedChar[runningTotal % 4]); } // If key pressed more than needed, wrap around
+                    else { outputString.Append(addedChar[runningTotal % 3]); }
+                }
+                currentKey = currentChar; // Process the next key.
+                runningTotal = 0; // Reset the count for the new key.
             }
 
-            if (currentKey != '#') return String.Empty; // If string does not end with '#', return empty string
-            return outputString.ToString();
+            if (currentKey == '#') { return outputString.ToString(); }
+            return String.Empty; // If string does not end with '#', return empty string.
         }
 
-        private static char GetCharFromKeyPress(char key, int count) // Map key presses to characters
+        private static readonly Dictionary<char, string> KeyMappings = new Dictionary<char, string> // Replacing switch statement with dictionary to decrease code size.
         {
-            if (key == '7' || key == '9') count = count % 4; // If key pressed more than needed, wrap around
-            else count = count % 3;
-
-            switch (key)
-            {
-                case '0':
-                    return ' ';
-                case '1':
-                    return "&'("[count];
-                case '2':
-                    return "ABC"[count];
-                case '3':
-                    return "DEF"[count];
-                case '4':
-                    return "GHI"[count];
-                case '5':
-                    return "JKL"[count];
-                case '6':
-                    return "MNO"[count];
-                case '7':
-                    return "PQRS"[count];
-                case '8':
-                    return "TUV"[count];
-                case '9':
-                    return "WXYZ"[count];
-                default:
-                    return '\0';
-            }
-        }
+            { '0', "    "}, // Using this instead of an if statement for 0 in order to reduce code size.
+            { '1', "&'(" },
+            { '2', "ABC" },
+            { '3', "DEF" },
+            { '4', "GHI" },
+            { '5', "JKL" },
+            { '6', "MNO" },
+            { '7', "PQRS" },
+            { '8', "TUV" },
+            { '9', "WXYZ" }
+        };
     } 
 }
