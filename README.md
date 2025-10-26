@@ -53,7 +53,7 @@ Program.cs
 Contains the main application logic:
 * Main: Entry point that demonstrates various test cases.
 * OldPhonePad: Core method that processes the input string and converts key presses to text.
-* GetCharFromKeyPress: Helper method that maps key-press combinations to specific characters. <br>
+* KeyMappings: Dictionary used to keep track of key mappings. <br>
 
 ## Testing
 Test Categories
